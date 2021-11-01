@@ -1,21 +1,17 @@
 #!/usr/bin/env bash
-# Loops from 1 to 10 and displays:
-#   "bad luck" for the 4th iteration
-#   "good luck" for the 8th iteration
-#   "Holberton School" for all other iterations
+# prints the string 'Best School' 10 times using a while loop, on the 9th iteration prints 'Hi'
 
-count=0
-
-while [ $count -lt 10 ]
+counter=1
+while [ $counter -le 10 ]
 do
-  if [ $count -eq 3 ]
-  then
-    echo "bad luck"
-  elif [ $count -eq 7 ]
-  then
-    echo "good luck"
-  else
-    echo "Holberton School"
-  fi
-  (( count++ ))
+	if [ $counter -eq 4 ]
+	then
+		echo "bad luck"
+	elif [ $counter -eq 8 ]
+	then
+		echo "good luck"
+	else
+		echo "Best School"
+	fi
+	((counter++))
 done
