@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#createing a new key for server
+ssh-keygen -t rsa -b 4096 -f school -N betty
