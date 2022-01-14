@@ -9,8 +9,8 @@
 #ufw allow 'Nginx HTTP'
 #chmod -R 755 /var/www
 echo 'Hello World' > /var/www/html/index.html
-sudo touch /var/www/html/redirect_me
-echo "to be redirect" > /var/www/html/redirect_me
+#sudo touch /var/www/html/redirect_me
+#echo "to be redirect" > /var/www/html/redirect_me
 
 new_config=\
 "server {
@@ -35,9 +35,9 @@ new_config=\
 
 echo "$new_config" > /etc/nginx/sites-available/default
 
-#if [ "$(pgrep nginx)" -le 0 ];
-#then
+if [ "$(pgrep nginx)" -le 0 ];
+then
     service nginx start
-#else
+else
     service nginx restart
-#fi;
+fi;
