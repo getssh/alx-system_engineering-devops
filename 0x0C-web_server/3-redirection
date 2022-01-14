@@ -4,23 +4,23 @@
 # and Configure your Nginx server so that /redirect_me is
 # redirecting to another page.
 
-apt-get update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-chmod -R 755 /var/www
+#apt-get update
+#apt-get -y install nginx
+#ufw allow 'Nginx HTTP'
+#chmod -R 755 /var/www
 echo 'Hello World' > /var/www/html/index.html
+sudo touch /var/www/html/redirect_me
+echo "to be redirect" > /var/www/html/redirect_me
 
 new_config=\
 "server {
         listen 80 default_server;
         listen [::]:80 default_server;
                root /var/www/html;
-
         # Add index.php to the list if you are using PHP
         index index.html index.htm index.nginx-debian.html;
-
-        server_name _;
-
+        server_name getssh.tech www.getssh.tech;
+	rewrite ^/redirect_me/$ www.google.com/$1 permanent;
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
@@ -35,9 +35,9 @@ new_config=\
 
 echo "$new_config" > /etc/nginx/sites-available/default
 
-if [ "$(pgrep nginx)" -le 0 ];
-then
+#if [ "$(pgrep nginx)" -le 0 ];
+#then
     service nginx start
-else
+#else
     service nginx restart
-fi;
+#fi;
