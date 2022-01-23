@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
-# Install and configure HAproxy on my lb-01 server.
+# Install and configure HAproxy on load balace server
+
 apt-get -y install haproxy
 
 # edit config file
-server_config=\
+load_balance_config=\
 "
-frontend  elmahdi-alx-frontend
-        bind *:80
-        mode http
-        default_backend elmahdi-alx-backend
-backend elmahdi-alx-backend
-        balance roundrobin
-        server 264-web-01 44.1192.66.166:80 check
-        server 264-web-02 35.170.74.216:80 check
+frontend http
+  bind *:80
+  mode http
+  default_backend web-backend
+
+backend web-backend
+   balance roundrobin
+   mode http
+   server 264-web-01 35.237.36.195:80 check
+   server 264-web-02 35.170.74.216:80 check
 "
- echo "$server_config" >> /etc/haproxy/haproxy.cfg
+ echo "$load_balance" >> /etc/haproxy/haproxy.cfg
 
  # enable haproxy to be started by init script
 
