@@ -1,39 +1,18 @@
 #!/usr/bin/env bash
-# Add a custome response header
-# GET request to root must be responded by the string 'Hello, World!'
-# GET request to /redirect_me/ must be redirected permanently
-# GET request to non-existent URI must return a custom 404 page
-# Add custom response header `X-Served-By` value is hostname of server
+#setting up the header to identify
+#which server is serving / responding
+#and setting up the server by installing nginx
 
-sudo apt update
-sudo apt install nginx -y
-sudo mkdir /var/www/error
-echo "Hello World!" | sudo tee /var/www/html/index.html
-echo -e "Ceci n'est pas une page" | sudo tee /var/www/error/custom_404.html
+apt update
+apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+sudo mkdir -p /var/www/html
+sudo chmod -R 755 /var/www
+echo 'Hello World!' > /var/www/html/index.html
+if [ "$(pgrep -c nginx)" -le 0 ]; then
+                service nginx start
+        else
+                service nginx restart
+fi
 
-default=\
-"
-	server {
-			listen 80 default_server;
-			listen [::]:80 default_server;
-			root /var/www/html;
-			index index.html index.htm index.nginx-debian.html;
-			server_name _;
-			error_page 404 /custom_404.html;
-			location /custom_404.html {
-					root /var/www/error;
-					internal;
-					add_header X-Served-By $HOSTNAME;
-			}
-			location / {
-					try_files \$uri \$uri/ =404;
-					add_header X-Served-By $HOSTNAME;
-			}
-			location /redirect_me/ {
-					rewrite ^(.*)$ http://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
-					add_header X-Served-By $HOSTNAME;
-			}
-}"
-
-echo "$default" | sudo tee /etc/nginx/sites-available/default
-sudo service nginx restart
+curl -H "X-Served-By:264-web-02" 35.170.74.216
