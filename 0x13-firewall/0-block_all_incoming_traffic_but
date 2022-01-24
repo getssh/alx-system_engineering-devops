@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # setting up our firewall to accept only port 22, 80, 443
-sudo apt install -y ufw
 sudo ufw disable
 sudo ufw default deny incoming
 sudo ufw allow 22/tcp
