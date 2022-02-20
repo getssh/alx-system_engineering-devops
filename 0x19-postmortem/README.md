@@ -1,4 +1,4 @@
-https://starecat.com/content/wp-content/uploads/code-for-six-minutes-debug-for-six-hours-programming.jpg
+![alt text](https://starecat.com/content/wp-content/uploads/code-for-six-minutes-debug-for-six-hours-programming.jpg)
 
 Issue Summary:
 On 2/19/22 at 5:23 pm PST, 100% of the website's service was down for a total 12 minutes, with service reinstated at 5:35 pm PST. Users universally experienced a response with a status code of 500 (internal server error). The root cause of the outage was a single-letter, typographical error in which a .php file was typed as a .phpp file.
